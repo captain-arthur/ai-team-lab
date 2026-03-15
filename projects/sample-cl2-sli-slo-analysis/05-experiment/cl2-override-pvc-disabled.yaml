@@ -1,0 +1,3 @@
+# ClusterLoader2 test override: disable Prometheus PVC for local/safe runs.
+# Pass as second --testoverrides so Prometheus does not require a PVC.
+CL2_PROMETHEUS_PVC_ENABLED: false

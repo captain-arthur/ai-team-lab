@@ -1,0 +1,17 @@
+---
+description: When CAT/devcat work is involved, allow running local commands to execute and inspect experiments
+alwaysApply: true
+---
+
+# devcat / CAT Execution
+
+When the project involves **CAT** (Cluster Acceptance Testing) or **devcat** (ClusterLoader2-based acceptance testing):
+
+- The AI team **may run local commands** as needed to:
+  - Execute the devcat workflow (e.g. run `scripts/run-devcat.sh` from the devcat repository).
+  - Inspect result directories (`results/<run-id>/`, `clusterloader2/`, logs).
+  - List files, read manifest, parse result files to identify metrics.
+  - Use `kubectl` or cluster access if the task requires running against a real cluster.
+- Commands should be run only to fulfill the Experiment phase (or explicit user request): run experiments, collect results, extract metrics, evaluate SLOs.
+- Do not modify the devcat or ClusterLoader2 source code unless the task explicitly asks for it. Prefer overrides and runbook-defined usage.
+- If the devcat repository lives outside this workspace (e.g. sibling directory), use its absolute or relative path as established by the user or project (e.g. `../devcat` or path from project docs).

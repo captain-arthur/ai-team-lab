@@ -1,0 +1,73 @@
+---
+description: Safety policies for running devcat (ClusterLoader2) experiments
+alwaysApply: true
+---
+
+# devcat Experiment Safety
+
+When the **Experimenter** runs devcat experiments (ClusterLoader2), follow these safety rules to avoid hangs, indefinite waits, and failures due to misconfigured environments.
+
+---
+
+## 1. Preflight Checks (Before Running ClusterLoader2)
+
+Run these checks **before** starting a ClusterLoader2 experiment. If any check fails, fix the environment or document the limitation and adjust the experiment (e.g. skip Prometheus, or abort) instead of proceeding blindly.
+
+1. **Kubeconfig and cluster reachability**
+   - Verify kubeconfig exists (e.g. `$KUBECONFIG` or `$HOME/.kube/config`).
+   - Verify the cluster is reachable (e.g. `kubectl cluster-info` or `kubectl get nodes`).
+   - Do not start ClusterLoader2 if the cluster is unreachable.
+
+2. **Kubernetes API server accessibility**
+   - Verify the Kubernetes API server is accessible (e.g. `kubectl get ns` or a simple API call).
+   - Ensures ClusterLoader2 and any in-cluster components (e.g. Prometheus) can talk to the API server.
+
+3. **Default StorageClass**
+   - Detect whether a default StorageClass exists (e.g. `kubectl get storageclass` and check for `(default)` or a default annotation).
+   - **If no StorageClass is present (or no default):** disable Prometheus PVC usage so Prometheus does not depend on a PersistentVolumeClaim. Use the safe option that disables PVC for Prometheus (see below). This avoids Prometheus pods remaining **Pending** indefinitely.
+
+4. **Optional but recommended**
+   - Note node count and resources if running resource-heavy scenarios.
+   - Confirm the ClusterLoader2 binary (e.g. `devcat/bin/cl2`) exists and is executable when using the devcat workflow.
+
+---
+
+## 2. Safe Default ClusterLoader2 Options (Local Experiments)
+
+For **local** or **development** experiments (e.g. kind, minikube, single-node), use these options when invoking ClusterLoader2 unless the environment **explicitly** supports other configurations (e.g. a known-good GKE/GCE setup with default StorageClass and Prometheus manifests):
+
+| Option | Safe default | Purpose |
+|--------|----------------|--------|
+| `--enable-prometheus-server` | `true` | Enable in-cluster Prometheus so Prometheus-based SLI measurements can run. |
+| `--prometheus-memory-request` | `400Mi` | Keep Prometheus resource requests modest for small clusters and avoid OOM or scheduling issues. |
+| Prometheus PVC usage | **disabled** | Avoid Prometheus pods stuck in **Pending** when no suitable StorageClass or provisioner exists. Use the flag or override that disables PVC for Prometheus (e.g. `--prometheus-pvc-enabled=false` or equivalent such as test override `CL2_PROMETHEUS_PVC_ENABLED=false` if supported by the binary). |
+| `--prometheus-apiserver-scrape-port` | `6443` | Prometheus runs **inside** the cluster and scrapes the API server via the control-plane node IP. The API server listens on **6443** on that node. Use **6443** for in-cluster scrape. Do **not** use the host-mapped port (e.g. kind’s 51365); that port is not listening from inside the cluster and causes "connection refused". |
+
+- The Experimenter should **use these options** when running ClusterLoader2 in devcat unless the user or project docs state that the environment uses different, validated settings.
+- Before running a **Prometheus-dependent** full load experiment, run the **Prometheus measurement readiness precheck** (see project `05-experiment/experiment-notes.md` §10.1). Do not run a long-timeout full experiment unless the precheck passes.
+- If the ClusterLoader2 binary does not support a given flag name, use the equivalent environment variable or test-override mechanism documented for that binary version.
+
+---
+
+## 3. Timeout Protection
+
+ClusterLoader2 runs **must not** block indefinitely.
+
+1. **Maximum experiment runtime**
+   - Define a **maximum experiment runtime** (e.g. **20 minutes**). Treat this as the default unless the project or user specifies otherwise.
+
+2. **Enforcing the timeout**
+   - Run ClusterLoader2 under a timeout (e.g. `timeout 20m ...` on Linux/macOS, or a wrapper script that kills the process after the max duration).
+   - If the test **exceeds the timeout**, abort the run and record the experiment as a **failed experiment** (timeout). Do not leave the process running unattended.
+
+3. **Documentation**
+   - In experiment notes, record:
+     - The timeout value used.
+     - Whether the run completed within the timeout or was aborted (and after how long).
+
+---
+
+## 4. Scope and Exceptions
+
+- These rules apply to **Experiment phase** runs of devcat/ClusterLoader2 from this AI team workspace. They do **not** require modifying the devcat repository; all policies are enforced from this workspace (preflight commands, CLI flags, timeouts).
+- If the user explicitly requests a longer run or different options (e.g. for a production-like acceptance test), document the exception and the chosen timeout/options in the experiment notes.

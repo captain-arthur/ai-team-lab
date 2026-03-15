@@ -15,9 +15,10 @@ All project outputs go under **projects/<project-name>/**. Use the phase folders
 | Research           | `02-research/`             | `research.md`                        |
 | Architecture       | `03-architecture/`        | `architecture.md`                    |
 | Engineering        | `04-engineering/`          | (per prompt)                         |
-| Review             | `05-review/`              | (structure in prompt)                |
-| Documentation      | `06-documentation/`       | `final-report.md`                    |
-| Knowledge Extraction | `07-knowledge-extraction/` | `knowledge-extraction.md`         |
+| Experiment (CAT/devcat) | `05-experiment/`     | (per prompt)                         |
+| Review             | `06-review/`              | (structure in prompt)                |
+| Documentation      | `07-documentation/`       | `final-report.md`                    |
+| Knowledge Extraction | `08-knowledge-extraction/` | `knowledge-extraction.md`         |
 
 ## Rules
 

@@ -14,9 +14,10 @@ Follow the workflow defined in **WORKFLOW.md**. Do not reorder or skip phases un
 3. **Research** — Findings, comparisons (input: Manager output).
 4. **Architecture** — Design, decisions, trade-offs (input: Manager + Research).
 5. **Engineering** — Implementation artifacts (input: Manager + Research + Architecture).
-6. **Review** — Validation, checklist, issues (input: all prior).
-7. **Documentation** — Final report, user docs (input: all prior).
-8. **Knowledge Extraction** — Extract and store in `knowledge/` (input: completed project).
+6. **Experiment** — (CAT/devcat only) Run devcat experiments, collect results, analyze metrics, evaluate SLOs, interpretation notes (input: Manager + Research + Architecture + Engineering).
+7. **Review** — Validation, checklist, issues (input: all prior, including Experiment when applicable).
+8. **Documentation** — Final report, user docs (input: all prior).
+9. **Knowledge Extraction** — Extract and store in `knowledge/` (input: completed project).
 
 ## Rules
 
