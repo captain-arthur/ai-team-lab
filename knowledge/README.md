@@ -21,6 +21,7 @@ Each subdirectory has its own README describing what to store and how to name fi
 
 - **After a project:** Run the **Knowledge Extraction** stage (see **WORKFLOW.md**). Use `templates/knowledge-extraction.md` to capture key findings, patterns, tool insights, and lessons. Then create or update files in `knowledge/principles`, `knowledge/tools`, `knowledge/patterns`, and `knowledge/lessons` from that extraction.
 - **Before a project:** When starting a new task, check these folders for relevant principles, tools, patterns, and lessons. Feed them into the Manager brief or Researcher handoff so the team reuses past learning.
+- **Domain-specific work:** For **CAT / devcat** related tasks, read `knowledge/principles/cat-vision.md`, `cat-design-principles.md`, `sli-slo-philosophy.md`, and **`devcat-program-brief.md`** first and align proposals with them. The program brief describes current direction, devcat reality, open problems, and the research→experiment→devcat improvement model. See `knowledge/principles/README.md` for the list.
 
 ---
 
