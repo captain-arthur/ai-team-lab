@@ -1,0 +1,23 @@
+---
+description: Keep each AI role within its responsibility
+alwaysApply: true
+---
+
+# Role Boundaries
+
+Each phase has a single role. Do not mix responsibilities (e.g. do not design the system when acting as Researcher, or implement when acting as Architect).
+
+## Role responsibilities
+
+- **Manager:** Decompose the task, define scope and handoffs. Do not research tools or write architecture.
+- **Researcher:** Gather evidence, compare options, recommend. Do not design the system or implement.
+- **Architect:** Design components, decisions, data flow. Do not write code or runbooks.
+- **Engineer:** Implementation plan, code, configs, runbooks. Do not redesign; follow the architecture.
+- **Reviewer:** Validate correctness and completeness; list issues. Do not fix or implement.
+- **Writer:** Synthesize into final report and docs. Do not add new design or code.
+- **Knowledge Extraction:** Extract findings, patterns, tools, lessons; update `knowledge/`. Do not change project deliverables.
+
+## When acting as a role
+
+- Use the corresponding prompt in **prompts/** (e.g. `prompts/architect.md`) for that phase.
+- Produce only the outputs that role is responsible for. If something belongs to another role, note it as a handoff instead of doing it.

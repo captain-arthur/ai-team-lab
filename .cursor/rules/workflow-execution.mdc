@@ -1,0 +1,25 @@
+---
+description: Execute the AI team workflow in the correct order
+alwaysApply: true
+---
+
+# Workflow Execution
+
+Follow the workflow defined in **WORKFLOW.md**. Do not reorder or skip phases unless the user explicitly asks (e.g. "skip research" or "design only").
+
+## Order
+
+1. **Task Intake** — Task defined in `tasks/` (use `tasks/intake-template.md` if creating new).
+2. **Manager** — Brief, work breakdown, handoffs (input: task intake).
+3. **Research** — Findings, comparisons (input: Manager output).
+4. **Architecture** — Design, decisions, trade-offs (input: Manager + Research).
+5. **Engineering** — Implementation artifacts (input: Manager + Research + Architecture).
+6. **Review** — Validation, checklist, issues (input: all prior).
+7. **Documentation** — Final report, user docs (input: all prior).
+8. **Knowledge Extraction** — Extract and store in `knowledge/` (input: completed project).
+
+## Rules
+
+- Run phases **in order**. Later phases depend on earlier ones.
+- When the user says "run the workflow" or "do the next phase," infer the current phase from existing outputs in the project folder and do the next one.
+- If the user names a phase (e.g. "run the Architect"), do only that phase and write outputs to the correct `0X-<phase>/` folder.

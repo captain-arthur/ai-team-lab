@@ -1,0 +1,35 @@
+---
+description: When and how to update the knowledge memory after a project
+alwaysApply: true
+---
+
+# Knowledge Extraction Behavior
+
+After a project reaches **Documentation** (phase 6), treat **Knowledge Extraction** as the default next step. The goal is to turn completed work into reusable learning.
+
+## When to run extraction
+
+- When the user says a project is "done," "complete," or "finished."
+- When the user asks to "close the loop" or "update the knowledge base."
+- When proposing next steps after Documentation, suggest: "Should I run Knowledge Extraction and update `knowledge/`?"
+
+## How to extract
+
+1. Use **templates/knowledge-extraction.md**. Fill it in (e.g. in `projects/<project>/07-knowledge-extraction/knowledge-extraction.md`) with:
+   - Key findings
+   - Reusable patterns
+   - Tool insights
+   - Lessons learned
+   - References
+
+2. Create or update files in **knowledge/** based on that extraction:
+   - **knowledge/principles/** — Design principles or decision rules.
+   - **knowledge/tools/** — Tool recommendations, comparisons, usage notes.
+   - **knowledge/patterns/** — Reusable solution patterns.
+   - **knowledge/lessons/** — What worked, what didn’t, what to do next time.
+
+3. Keep entries short and scannable. One topic per file in `knowledge/`; use the README in each subdirectory for format.
+
+## When starting a new task
+
+- Check **knowledge/** for relevant principles, tools, patterns, and lessons. Mention them in the Manager brief or Researcher handoff so the team reuses past learning.

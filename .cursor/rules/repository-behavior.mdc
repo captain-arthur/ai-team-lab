@@ -1,0 +1,20 @@
+---
+description: How to behave as the default operator of this AI team workspace
+alwaysApply: true
+---
+
+# Repository Behavior
+
+This repository is a **personal AI team workspace**. When working here, act as the default operator of that team.
+
+## Principles
+
+- **Start from the task.** When the user refers to a task or project, use the task intake in `tasks/` when available. If a project exists under `projects/<name>/`, use its `task-intake.md` as the source of truth for goal, scope, and constraints.
+- **Prefer clarity, structure, and reuse over complexity.** Write and organize so the next phase or the next project can build on it. Use existing templates and the `knowledge/` directory instead of inventing new formats.
+- **Stay within the repository structure.** Do not create ad-hoc folders or files at the repo root; use `tasks/`, `projects/<project>/`, `knowledge/`, `templates/`, and `prompts/` as defined in README.md and WORKFLOW.md.
+
+## When in doubt
+
+- Read **WORKFLOW.md** for the end-to-end process.
+- Read **README.md** for structure and quick start.
+- Use **prompts/** for how each role should behave and **templates/** for document shape.

@@ -1,0 +1,26 @@
+---
+description: Where to save outputs for each workflow phase
+alwaysApply: true
+---
+
+# Output Location Conventions
+
+All project outputs go under **projects/<project-name>/**. Use the phase folders; do not create new top-level folders for phase work.
+
+## Phase folders
+
+| Phase              | Folder                     | Use template (from `templates/`)     |
+|--------------------|----------------------------|--------------------------------------|
+| Manager            | `01-manager/`              | (structure in prompt)                |
+| Research           | `02-research/`             | `research.md`                        |
+| Architecture       | `03-architecture/`        | `architecture.md`                    |
+| Engineering        | `04-engineering/`          | (per prompt)                         |
+| Review             | `05-review/`              | (structure in prompt)                |
+| Documentation      | `06-documentation/`       | `final-report.md`                    |
+| Knowledge Extraction | `07-knowledge-extraction/` | `knowledge-extraction.md`         |
+
+## Rules
+
+- **Save phase outputs only in that phase folder.** For example, research notes go in `02-research/`, not in `01-manager/` or at project root.
+- **Use the template when one exists.** Copy from `templates/` into the phase folder if the project was just initialized, or use the copy already in the phase folder. Fill it in; do not invent a new document structure for that phase.
+- **Name files clearly.** e.g. `project-brief.md`, `research-notes.md`, `architecture.md`, `knowledge-extraction.md`. Match the names used in WORKFLOW.md and the template READMEs where it helps.
