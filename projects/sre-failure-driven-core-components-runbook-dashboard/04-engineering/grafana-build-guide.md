@@ -1,5 +1,7 @@
 # Grafana 빌드 가이드(최소 지표 기반, Stat 중심)
 
+이 가이드는 CAT 입력 없이도, Monitoring 관측 지표와 `state_score(0/1/2)`만으로 Grafana를 구현한다.
+
 이 문서만 보고도 “9개 Stat 패널”을 구현할 수 있게 구성한다.
 가능하면 각 패널은 단일 쿼리 결과로 `state_score`(0/1/2)를 반환하도록 만든다.
 

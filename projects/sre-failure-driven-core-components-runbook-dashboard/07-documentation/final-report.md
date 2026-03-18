@@ -1,5 +1,9 @@
 # 최종 리포트(실제 구현 자산)
 
+## CAT 비의존(중요)
+이 대시보드는 `CAT 결과(PASS/FAIL)` 같은 입력을 사용하지 않는다.  
+모든 판정은 Monitoring의 관측 지표(istio-ingressgateway / nodelocaldns / coredns 관련 Prometheus 지표)만으로 `Q1/Q2/Q3` 상태를 만든다.
+
 ## 1) 최종 골든 시그널 요약(컴포넌트별 4개)
 - `istio-ingressgateway`
   - `error_rate_5m` (5xx 비율)
