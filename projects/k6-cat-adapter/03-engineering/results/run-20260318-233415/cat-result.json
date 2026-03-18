@@ -1,0 +1,21 @@
+{
+  "test_name": "http-basic",
+  "tool": "k6",
+  "scenario_type": "http",
+  "target": "https://test.k6.io/",
+  "sli": {
+    "latency_p95_ms": 219.1263,
+    "error_rate": 0,
+    "throughput_rps": 152.9828234450484
+  },
+  "slo": {
+    "latency_p95_ms": 400.0,
+    "error_rate": 0.01
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "timestamp": "2026-03-18T14:34:49.411010Z",
+  "artifacts": {
+    "k6_summary_path": "results/run-20260318-233415/k6-summary.json"
+  }
+}
