@@ -1,0 +1,24 @@
+{
+  "test_name": "custom-cat-recovery-after-failure",
+  "tool": "ginkgo",
+  "scenario_type": "custom-recovery-after-failure",
+  "selected_sli": {
+    "error_rate": 0.25,
+    "recovery_time_ms": 402
+  },
+  "slo_result": {
+    "error_ok": true,
+    "error_slo_rate_max": 0.35,
+    "recovery_ok": true,
+    "recovery_slo_max_ms": 800
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "timestamp": "2026-03-18T15:47:37.603424Z",
+  "scenario_params": {
+    "fail_for_ms": 300,
+    "interval_ms": 50,
+    "success_streak": 3,
+    "total_ms": 1200
+  }
+}

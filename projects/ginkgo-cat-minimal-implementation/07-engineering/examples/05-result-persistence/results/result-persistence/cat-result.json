@@ -1,0 +1,23 @@
+{
+  "test_name": "result-persistence-example",
+  "tool": "ginkgo",
+  "scenario_type": "custom-http",
+  "selected_sli": {
+    "avg_latency_ms": 22.3,
+    "error_rate": 0
+  },
+  "slo_result": {
+    "error_ok": true,
+    "error_slo_rate_max": 0,
+    "latency_ok": true,
+    "latency_slo_max_ms": 300
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "timestamp": "2026-03-18T15:47:35.737681Z",
+  "scenario_params": {
+    "delay_ms": 20,
+    "fail_every": 999999,
+    "requests": 10
+  }
+}

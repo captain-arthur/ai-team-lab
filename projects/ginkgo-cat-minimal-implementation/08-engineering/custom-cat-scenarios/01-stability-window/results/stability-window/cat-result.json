@@ -1,0 +1,24 @@
+{
+  "test_name": "custom-cat-stability-window",
+  "tool": "ginkgo",
+  "scenario_type": "custom-stability-window",
+  "selected_sli": {
+    "avg_latency_ms": 0,
+    "error_rate": 0,
+    "ready_latency_ms": 126
+  },
+  "slo_result": {
+    "error_ok": true,
+    "error_slo_rate_max": 0,
+    "ready_ok": true,
+    "ready_slo_max_ms": 250
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "timestamp": "2026-03-18T15:47:36.615529Z",
+  "scenario_params": {
+    "requests_in_window": 10,
+    "stability_ms": 400,
+    "warmup_ms": 120
+  }
+}
