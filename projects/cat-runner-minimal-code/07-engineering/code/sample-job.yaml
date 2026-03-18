@@ -1,0 +1,20 @@
+test_name: http-basic
+tool: k6
+entry: ./examples/k6/http-basic.js
+
+scenario:
+  type: http
+  target: https://test.k6.io/
+  load_model: arrival
+  rps: 40
+  duration: 20s
+
+slo:
+  latency_p95_ms: 450
+  error_rate: 0.01
+
+selected_sli: [latency_p95_ms, error_rate, throughput_rps]
+
+output:
+  dir: ./sample-run/results/http-basic
+

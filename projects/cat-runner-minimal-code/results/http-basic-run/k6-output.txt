@@ -1,0 +1,119 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: ../../examples/k6/http-basic.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 200 max VUs, 50s max duration (incl. graceful stop):
+              * arrival_steady: 40.00 iterations/s for 20s (maxVUs: 20-200, gracefulStop: 30s)
+
+
+running (01.0s), 015/025 VUs, 20 complete and 0 interrupted iterations
+arrival_steady   [   5% ] 015/025 VUs  01.0s/20s  40.00 iters/s
+
+running (02.0s), 007/025 VUs, 68 complete and 0 interrupted iterations
+arrival_steady   [  10% ] 007/025 VUs  02.0s/20s  40.00 iters/s
+
+running (03.0s), 007/025 VUs, 108 complete and 0 interrupted iterations
+arrival_steady   [  15% ] 007/025 VUs  03.0s/20s  40.00 iters/s
+
+running (04.0s), 009/025 VUs, 146 complete and 0 interrupted iterations
+arrival_steady   [  20% ] 009/025 VUs  04.0s/20s  40.00 iters/s
+
+running (05.0s), 008/025 VUs, 187 complete and 0 interrupted iterations
+arrival_steady   [  25% ] 008/025 VUs  05.0s/20s  40.00 iters/s
+
+running (06.0s), 007/025 VUs, 228 complete and 0 interrupted iterations
+arrival_steady   [  30% ] 007/025 VUs  06.0s/20s  40.00 iters/s
+
+running (07.0s), 011/025 VUs, 264 complete and 0 interrupted iterations
+arrival_steady   [  35% ] 011/025 VUs  07.0s/20s  40.00 iters/s
+
+running (08.0s), 009/025 VUs, 306 complete and 0 interrupted iterations
+arrival_steady   [  40% ] 009/025 VUs  08.0s/20s  40.00 iters/s
+
+running (09.0s), 007/025 VUs, 348 complete and 0 interrupted iterations
+arrival_steady   [  45% ] 007/025 VUs  09.0s/20s  40.00 iters/s
+
+running (10.0s), 007/025 VUs, 388 complete and 0 interrupted iterations
+arrival_steady   [  50% ] 007/025 VUs  10.0s/20s  40.00 iters/s
+
+running (11.0s), 007/025 VUs, 428 complete and 0 interrupted iterations
+arrival_steady   [  55% ] 007/025 VUs  11.0s/20s  40.00 iters/s
+
+running (12.0s), 007/025 VUs, 468 complete and 0 interrupted iterations
+arrival_steady   [  60% ] 007/025 VUs  12.0s/20s  40.00 iters/s
+
+running (13.0s), 007/025 VUs, 508 complete and 0 interrupted iterations
+arrival_steady   [  65% ] 007/025 VUs  13.0s/20s  40.00 iters/s
+
+running (14.0s), 010/025 VUs, 545 complete and 0 interrupted iterations
+arrival_steady   [  70% ] 010/025 VUs  14.0s/20s  40.00 iters/s
+
+running (15.0s), 009/025 VUs, 586 complete and 0 interrupted iterations
+arrival_steady   [  75% ] 009/025 VUs  15.0s/20s  40.00 iters/s
+
+running (16.0s), 007/025 VUs, 628 complete and 0 interrupted iterations
+arrival_steady   [  80% ] 007/025 VUs  16.0s/20s  40.00 iters/s
+
+running (17.0s), 007/025 VUs, 668 complete and 0 interrupted iterations
+arrival_steady   [  85% ] 007/025 VUs  17.0s/20s  40.00 iters/s
+
+running (18.0s), 010/025 VUs, 705 complete and 0 interrupted iterations
+arrival_steady   [  90% ] 010/025 VUs  18.0s/20s  40.00 iters/s
+
+running (19.0s), 008/025 VUs, 747 complete and 0 interrupted iterations
+arrival_steady   [  95% ] 008/025 VUs  19.0s/20s  40.00 iters/s
+
+running (20.0s), 007/025 VUs, 788 complete and 0 interrupted iterations
+arrival_steady   [ 100% ] 007/025 VUs  20.0s/20s  40.00 iters/s
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✓ 'p(95)<450' p(95)=222.52ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 796     39.416919/s
+    checks_succeeded...: 100.00% 796 out of 796
+    checks_failed......: 0.00%   0 out of 796
+
+    ✓ status is 200
+
+    HTTP
+    http_req_duration..............: avg=102.54ms min=5.3ms    med=137ms    max=390.06ms p(90)=187.46ms p(95)=222.52ms
+      { expected_response:true }...: avg=102.54ms min=5.3ms    med=137ms    max=390.06ms p(90)=187.46ms p(95)=222.52ms
+    http_req_failed................: 0.00%  0 out of 1592
+    http_reqs......................: 1592   78.833838/s
+
+    EXECUTION
+    dropped_iterations.............: 5      0.247594/s
+    iteration_duration.............: avg=218.63ms min=172.48ms med=192.54ms max=710.06ms p(90)=265.73ms p(95)=280.14ms
+    iterations.....................: 796    39.416919/s
+    vus............................: 7      min=7         max=15
+    vus_max........................: 25     min=25        max=25
+
+    NETWORK
+    data_received..................: 3.2 MB 157 kB/s
+    data_sent......................: 159 kB 7.9 kB/s
+
+
+
+
+running (20.2s), 000/025 VUs, 796 complete and 0 interrupted iterations
+arrival_steady ✓ [ 100% ] 000/025 VUs  20s  40.00 iters/s

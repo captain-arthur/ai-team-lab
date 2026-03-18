@@ -1,0 +1,17 @@
+test_name: ginkgo-custom-http
+tool: ginkgo
+
+scenario:
+  type: http
+  config:
+    requests: 25
+    delay_ms: 10
+    fail_every: 999999
+
+slo:
+  latency_p95_ms: 50
+  error_rate: 0.01
+
+output:
+  dir: ./sample-run/results/ginkgo-custom-http
+

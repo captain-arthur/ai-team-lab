@@ -1,0 +1,30 @@
+{
+  "test_name": "http-basic",
+  "tool": "k6",
+  "scenario_type": "http",
+  "selected_sli": {
+    "error_rate": 0,
+    "latency_p95_ms": 222.52769999999998,
+    "throughput_rps": 78.83383758268516
+  },
+  "slo_result": {
+    "error_rate": {
+      "measured": 0,
+      "ok": true,
+      "slo_max": 0.01
+    },
+    "latency_p95_ms": {
+      "measured": 222.52769999999998,
+      "ok": true,
+      "slo_max": 450
+    }
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "raw_result": {
+    "format": "json",
+    "path": "./sample-results/k6-summary.json"
+  },
+  "timestamp": "2026-03-18T16:49:55.38079Z"
+}
+

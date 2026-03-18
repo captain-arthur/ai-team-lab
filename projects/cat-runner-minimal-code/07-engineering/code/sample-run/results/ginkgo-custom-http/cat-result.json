@@ -1,0 +1,29 @@
+{
+  "test_name": "ginkgo-custom-http",
+  "tool": "ginkgo",
+  "scenario_type": "http",
+  "selected_sli": {
+    "error_rate": 0,
+    "latency_p95_ms": 12.199,
+    "throughput_rps": 85.09360083357691
+  },
+  "slo_result": {
+    "error_rate": {
+      "measured": 0,
+      "ok": true,
+      "slo_max": 0.01
+    },
+    "latency_p95_ms": {
+      "measured": 12.199,
+      "ok": true,
+      "slo_max": 50
+    }
+  },
+  "final_pass_fail": "PASS",
+  "exit_code": 0,
+  "raw_result": {
+    "format": "json",
+    "path": "/Users/hooni/Documents/github/ai-team-lab/projects/cat-runner-minimal-code/07-engineering/code/sample-run/results/ginkgo-custom-http/ginkgo-raw.json"
+  },
+  "timestamp": "2026-03-18T17:01:23.445996Z"
+}
