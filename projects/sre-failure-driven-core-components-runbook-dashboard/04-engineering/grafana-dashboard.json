@@ -1,0 +1,412 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "panels": [],
+      "title": "Row 1: 지금 안전한가?",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안전", "color": "green" },
+                "1": { "text": "주의", "color": "yellow" },
+                "2": { "text": "실패", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[5m])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 500) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"istio-ingressgateway.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[5m])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 1000) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"istio-ingressgateway.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "istio-ingressgateway - 지금 안전한가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안전", "color": "green" },
+                "1": { "text": "주의", "color": "yellow" },
+                "2": { "text": "실패", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 8, "y": 1 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 50) bool + (sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m])) > 0.01) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 150) bool + (sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m])) > 0.03) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "nodelocaldns - 지금 안전한가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안전", "color": "green" },
+                "1": { "text": "주의", "color": "yellow" },
+                "2": { "text": "실패", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 16, "y": 1 },
+      "id": 3,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app!=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 50) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app!=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 150) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "coredns - 지금 안전한가?",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "id": 101,
+      "panels": [],
+      "title": "Row 2: 내일도 안전한가?",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안정", "color": "green" },
+                "1": { "text": "위험", "color": "yellow" },
+                "2": { "text": "높음", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 0, "y": 6 },
+      "id": 4,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[1h])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[1h]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 500) bool) > 0) bool) + ((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[1h])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[1h]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 1000) bool + ((sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) > 200) bool * (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 800) bool)) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "istio-ingressgateway - 내일도 안전한가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안정", "color": "green" },
+                "1": { "text": "위험", "color": "yellow" },
+                "2": { "text": "높음", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 8, "y": 6 },
+      "id": 5,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[1h]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 50) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"node-local-dns.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[1h]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 150) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"node-local-dns.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "nodelocaldns - 내일도 안전한가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "안정", "color": "green" },
+                "1": { "text": "위험", "color": "yellow" },
+                "2": { "text": "높음", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 16, "y": 6 },
+      "id": 6,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[1h]))) > 0.01) bool + (sum(increase(kube_pod_container_status_restarts_total{pod=~\"coredns.*|kube-dns.*\"}[10m])) > 2) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[1h]))) > 0.03) bool + (sum(increase(kube_pod_container_status_restarts_total{pod=~\"coredns.*|kube-dns.*\"}[10m])) > 5) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "coredns - 내일도 안전한가?",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 10 },
+      "id": 102,
+      "panels": [],
+      "title": "Row 3: 무엇을 해야 하는가?",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "예방 확인", "color": "green" },
+                "1": { "text": "원인 분류", "color": "yellow" },
+                "2": { "text": "즉시 완화 준비", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 0, "y": 11 },
+      "id": 7,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[5m])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 500) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"istio-ingressgateway.*\"}) == 0) bool + (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[1h])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[1h])) > 0.01) bool) > 0) bool) + ((( (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[5m])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 1000) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"istio-ingressgateway.*\"}) == 0) bool + (sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\",response_code=~\"5..\"}[1h])) / sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[1h])) > 0.03) bool + ((sum(rate(istio_requests_total{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) > 200) bool * (histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{destination_workload=\"istio-ingressgateway\",reporter=\"destination\"}[5m])) by (le)) > 800) bool)) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "istio-ingressgateway - 무엇을 해야 하는가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "예방 확인", "color": "green" },
+                "1": { "text": "원인 분류", "color": "yellow" },
+                "2": { "text": "즉시 완화 준비", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 8, "y": 11 },
+      "id": 8,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 50) bool + (sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m])) > 0.01) bool + (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[1h])) > 0.01) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"node-local-dns.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 150) bool + (sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_forward_response_rcode_count_total{k8s_app=\"node-local-dns\"}[5m])) > 0.03) bool + (sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app=\"node-local-dns\"}[1h])) > 0.03) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"node-local-dns.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "nodelocaldns - 무엇을 해야 하는가?",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": { "text": "예방 확인", "color": "green" },
+                "1": { "text": "원인 분류", "color": "yellow" },
+                "2": { "text": "즉시 완화 준비", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 8, "x": 16, "y": 11 },
+      "id": 9,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "horizontal", "textMode": "value" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "expr": "((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[5m]))) > 0.01) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app!=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 50) bool + (sum(increase(kube_pod_container_status_restarts_total{pod=~\"coredns.*|kube-dns.*\"}[10m])) > 2) bool + (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[1h])) > 0.01) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool) + ((( (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[5m])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[5m]))) > 0.03) bool + (histogram_quantile(0.95, sum(rate(coredns_dns_request_duration_seconds_bucket{k8s_app!=\"node-local-dns\"}[5m])) without(instance,pod)) * 1000 > 150) bool + (sum(increase(kube_pod_container_status_restarts_total{pod=~\"coredns.*|kube-dns.*\"}[10m])) > 5) bool + (sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\",rcode=\"SERVFAIL\"}[1h])) / sum(rate(coredns_dns_response_rcode_count_total{k8s_app!=\"node-local-dns\"}[1h])) > 0.03) bool + (sum(kube_pod_container_status_ready{condition=\"true\",pod=~\"coredns.*|kube-dns.*\"}) == 0) bool) > 0) bool)",
+          "refId": "A"
+        }
+      ],
+      "title": "coredns - 무엇을 해야 하는가?",
+      "type": "stat"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["sre", "operational-confidence", "minimal"],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "핵심 컴포넌트 운영 대시보드(최소 지표)",
+  "uid": "core-components-operational-confidence-min-v1",
+  "version": 1
+}
+
